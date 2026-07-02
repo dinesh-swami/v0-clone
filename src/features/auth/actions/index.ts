@@ -5,10 +5,11 @@ import { prisma } from "@/lib/db";
 
 export async function onBoardUser() {
   const { userId } = await auth();
-
+  console.log("user id :", userId);
   if (!userId) return;
 
   const clerkUser = await currentUser();
+  console.log("clerkUser :", clerkUser);
 
   if (!clerkUser) return;
 
