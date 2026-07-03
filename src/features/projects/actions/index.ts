@@ -29,7 +29,13 @@ export const createProject = async (value: string) => {
       },
     });
 
-    // TODO: Send the project to the inngest
+    await inngest.send({
+      name: "code-agent/run",
+      data: {
+        value,
+        projectId: project.id,
+      },
+    });
 
     return project;
   } catch (error) {
