@@ -206,5 +206,7 @@ export const allPromptTemplates = promptTemplateCategories.flatMap(
  * @returns A randomly selected {@link PromptTemplate}.
  */
 export function getRandomPromptTemplate() {
-  return allPromptTemplates[Math.floor(Math.random() * allPromptTemplates.length)];
+  return allPromptTemplates[
+    Math.floor(Math.random() * allPromptTemplates.length)
+  ];
 }

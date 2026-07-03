@@ -4,7 +4,6 @@ import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { Chai0Logo } from "@/components/brand/chai0-logo";
 
-
 export function GlassNavbar() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-4 z-50 flex justify-center px-4">

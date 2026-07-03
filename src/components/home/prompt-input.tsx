@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowUp, ChevronDown, RefreshCw } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   InputGroup,
@@ -17,21 +18,22 @@ import {
   getRandomPromptTemplate,
   promptTemplateCategories,
 } from "@/components/home/prompt-templates";
+import { useCreateProject } from "@/features/projects/hooks/projects";
 
-/**
- * Main prompt composer on the home page.
- *
- * Lets the user type (or pick a template/random idea for) a build prompt and
- * submit it. On submit it creates a new project and navigates to its workspace,
- * surfacing failures as toasts. Pressing Enter (without Shift) submits.
- */
 export function PromptInput() {
   const [prompt, setPrompt] = useState("");
   const router = useRouter();
- const isPending = false;
+  const { mutate: createProject, isPending } = useCreateProject();
 
   function handleSubmit() {
-   
+    createProject(prompt, {
+      onSuccess: (project) => {
+        router.push(`/projects/${project.id}`);
+      },
+      onError: (error) => {
+        toast.error(error.message);
+      },
+    });
   }
 
   /**
@@ -94,20 +96,22 @@ export function PromptInput() {
               {category.name}
             </p>
             <div className="flex flex-wrap gap-2">
-              {category.templates.map(({ label, icon: Icon, prompt: templatePrompt }) => (
-                <Button
-                  key={label}
-                  type="button"
-                  variant="outline"
-                  size="sm"
-                  className="rounded-full"
-                  disabled={isPending}
-                  onClick={() => applySuggestion(templatePrompt)}
-                >
-                  <Icon />
-                  {label}
-                </Button>
-              ))}
+              {category.templates.map(
+                ({ label, icon: Icon, prompt: templatePrompt }) => (
+                  <Button
+                    key={label}
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    className="rounded-full"
+                    disabled={isPending}
+                    onClick={() => applySuggestion(templatePrompt)}
+                  >
+                    <Icon />
+                    {label}
+                  </Button>
+                ),
+              )}
             </div>
           </div>
         ))}

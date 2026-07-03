@@ -49,12 +49,14 @@ function Chai0Mark({ className }: { className?: string }) {
  *
  * @param props - See {@link Chai0LogoProps}.
  */
-export function Chai0Logo({
-  className,
-  showWordmark = true,
-}: Chai0LogoProps) {
+export function Chai0Logo({ className, showWordmark = true }: Chai0LogoProps) {
   return (
-    <span className={cn("inline-flex items-center gap-2.5 text-foreground", className)}>
+    <span
+      className={cn(
+        "inline-flex items-center gap-2.5 text-foreground",
+        className,
+      )}
+    >
       <Chai0Mark className="h-7 w-auto" />
       {showWordmark ? (
         <span className="text-base font-semibold tracking-tight">chai0</span>

@@ -10,5 +10,5 @@ export const processTask = inngest.createFunction(
     await step.sleep("pause", "1s");
 
     return { message: `Task ${event.data.id} complete`, result };
-  }
+  },
 );
